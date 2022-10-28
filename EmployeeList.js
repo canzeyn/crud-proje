@@ -1,16 +1,21 @@
+
+
 import React from "react";
 import Employee from "./Employee";
 import { useState, useContext, useEffect } from "react";
 import EmployeeContext from "../contexts/EmployeeContext";
 import { Button, Modal, Form, FormGroup } from "react-bootstrap";
 import AddForm from "../components/AddForm";
-import { Label } from "reactstrap";
+import { Label, Alert } from "reactstrap";
+import Pagination from "./Pagination";
 
 
 
 const EmployeeList = () => {
 
 
+
+  const [showAlert , setShowAlert] = useState(false)
 
   const [show, setShow] = useState(false);
 
@@ -40,12 +45,19 @@ const EmployeeList = () => {
   }
 
 
+  const handleShowAlert = () => {setShowAlert(false)}
+
+
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
   useEffect(() => {
     handleClose();
+
+    return () => {
+      handleShowAlert()
+    }
   }, [employees])
 
   return (
@@ -63,6 +75,8 @@ const EmployeeList = () => {
         </div>
       </div>
 
+      <Alert color="info" isOpen={showAlert} toggle={handleShowAlert}>bu alert</Alert>
+
       <table className="table table-striped table-hover">
         <thead>
           <tr>
@@ -76,7 +90,7 @@ const EmployeeList = () => {
         <tbody>
           {
 
-            employees.map((employee) => (
+            employees.sort((a,b) => a.name.localeCompare(b.name)).map((employee) => (
               <tr key={employee.id}>
                 <Employee employee={employee} />
               </tr>
@@ -88,6 +102,7 @@ const EmployeeList = () => {
 
 
       </table>
+
 
 
       <Modal show={show} onHide={handleClose}>
