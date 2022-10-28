@@ -1,6 +1,6 @@
 import React from "react";
 // import {Button} from "reactstrap";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import EmployeeContext from "../contexts/EmployeeContext";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Label, Input, FormGroup } from "reactstrap";
 import EditForm from "./EditForm"
@@ -15,9 +15,11 @@ const Employee = ({ employee }) => {
     const handleClose = () => setModal(false);
 
     const { deleteEmployee } = useContext(EmployeeContext);
-    const { updateEmployee } = useContext(EmployeeContext)
+    const { updateEmployee } = useContext(EmployeeContext);
 
     const id = employee.id;
+
+
 
 
     const [name, setName] = useState(employee.name);
@@ -28,8 +30,15 @@ const Employee = ({ employee }) => {
     const updatedEmployee = { id, name, email, address, phone }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        updateEmployee(id, updatedEmployee);
     }
+
+    useEffect(() => {
+        handleClose();
+    }, [employee])
+
+
 
 
     return (
