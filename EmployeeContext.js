@@ -1,5 +1,5 @@
 import React from "react";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -11,11 +11,22 @@ const EmployeeContext = createContext("");
 export const EmployeeContextProvider = (props) => {
     const [employees, setEmployees] = useState([
         { id: uuidv4(), name: 'Thomas Hardy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
-        { id: uuidv4(), name: 'Thomas Harfsdfsd', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
+        { id: uuidv4(), name: 'aThomas Harfsdfsd', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
         { id: uuidv4(), name: 'Thomas Hardsgy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
-        { id: uuidv4(), name: 'Thomas Hk gkdsvsddy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
-        { id: uuidv4(), name: 'Thomas Hsdgökwlrewdy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
+        { id: uuidv4(), name: 'bThomas Hk gkdsvsddy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
+        { id: uuidv4(), name: 'cThomas Hsdgökwlrewdy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222' },
     ]);
+
+    useEffect(() => {
+        const employees = localStorage.getItem('employees')
+        setEmployees(JSON.parse(employees));
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('employees', JSON.stringify(employees));
+    })
+
+
 
 
 
